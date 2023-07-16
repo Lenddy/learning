@@ -1,0 +1,16 @@
+{
+  "name": "4_linked_list",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.6.1",
+    "save-dev": "^0.0.1-security"
+  }
+}
