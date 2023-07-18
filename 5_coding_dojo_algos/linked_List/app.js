@@ -2,15 +2,23 @@ const singlyLinkedList = require("./singlyLinkedList");
 
 const ll = new singlyLinkedList();
 
-console.log(ll.isEmpty());
+// console.log(ll.isEmpty());
 
-ll.insertAtFront(1);
+// ll.insertAtFront(1);
 // ll.insertAtFront(2);
 // ll.insertAtFront(3);
 // ll.insertAtFront(7);
-// ll.insertAtBack(10);
+ll.insertAtBack(1);
+// ll.insertAtBack(2);
+// ll.insertAtBack(3);
+// ll.insertAtBack(4);
+// console.log(ll.secondeToLast());
 
-ll.average();
+console.log(ll.preEnd(11, 1));
+// console.log("remove val", ll.removeVal(1));
+// console.log("remove val", ll.removeVal(4));
+
+// ll.average();
 // ll.removeHead();
 // ll.removeHead();
 // ll.removeHead();
@@ -19,6 +27,11 @@ ll.average();
 // ll.insertAtBack("b");
 // ll.insertAtBack("c");
 // ll.insertAtBack("d");
+// console.log("contains", ll.contains(2));
+// console.log("contains", ll.containsRecursive(2));
+// console.log(ll.max());
+// console.log(ll.maxRecursive());
+// ll.removeBack();
 // ll.insertAtBackRecursive("A");
 // ll.insertAtBackRecursive("B");
 // ll.insertAtBackRecursive("C");

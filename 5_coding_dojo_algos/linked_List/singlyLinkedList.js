@@ -57,16 +57,111 @@ class singlyLinkedList {
 		return this;
 	}
 
+	// remove the last item in the list
+	removeBack() {
+		if (this.isEmpty()) {
+			return this;
+		}
+		// create 2 variables prev, current
+		// if (this.head.next === null) {
+		// 	this.head = null;
+		// 	this.length--;
+		// 	return this;
+		// }
+		if (this.head.next === null) {
+			this.removeBack();
+		}
+		let prev;
+		let current = this.head;
+		while (current.next !== null) {
+			// prev = current
+			prev = current;
+			current = current.next;
+		}
+		prev.next = null;
+		this.length--;
+		return this;
+
+		// while (current !== null) {
+		// 	prev = current;
+		// 	current = current.next;
+		// 	if (current.next === null) {
+		// 		prev.next = null;
+		// 		this.length--;
+		// 		return;
+		// 	}
+		// }
+	}
+
+	// determine if the any inputted value  is on the list
+	contains(val) {
+		// check if the list is empty
+		if (this.isEmpty()) {
+			return false;
+		}
+
+		let current = this.head;
+		while (current !== null) {
+			// add return
+			if (val === current.data) {
+				return true;
+			}
+			current = current.next;
+		}
+		return false;
+		// iterate over the list
+		// compare if val is == to the data that is inside of the current node
+		// return a bool
+	}
+
+	// determine if the any inputted value  is on the list
+	containsRecursive(val, current = this.head) {
+		if (!current) {
+			return false;
+		}
+		if (val === current.data) return true;
+
+		return this.containsRecursive(val, current.next);
+		// return a bool
+	}
+
+	// returns the max value that the list is holding
+	max() {
+		if (this.isEmpty()) return null;
+		let current = this.head;
+		let number = this.head.data;
+		while (current !== null) {
+			if (current.next !== null && number < current.next.data) {
+				console.log("num was", number);
+				number = current.next.data;
+				console.log("num now is ", number);
+			}
+			current = current.next;
+		}
+		return number;
+	}
+
+	maxRecursive(runner = this.head, maxNode = this.head.data) {
+		if (this.isEmpty()) return null;
+
+		if (runner.next === null) {
+			return maxNode;
+		}
+		if (runner.next.data !== null && maxNode < runner.next.data) {
+			maxNode = runner.next.data;
+		}
+		return this.maxRecursive(runner.next, maxNode);
+	}
+
 	// calculate the average of all the node data assuming all node data are int
+	// to calculate the average you need to know the amount of number that you have(how many number )
+	// sum the amount of number  and then divide by the count of the numbers(the count of how many numbers there are (node))
+	// then you have your result of an average
 	average() {
 		if (this.isEmpty()) {
 			console.log("this list is Empty");
 			return 0;
 		}
-		// to calculate the average you need to know the amount of number that you have(how many number )
-		// sum the amount of number  and then divide by the count of the numbers(the count of how many numbers there are (node))
-		// then you have your result of an average
-
 		// make 2 variables  total and count\
 		let total = 0;
 		let count = 0;
@@ -80,24 +175,150 @@ class singlyLinkedList {
 			total += current.data;
 			current = current.next;
 		}
+		// divide the total  by the Total count
 		console.log(total / count);
 		return total / count;
-
-		// divide the total  by the Total count
 	}
+
+	// retrieve the data  of the node that is in the second to last position
+	secondeToLast() {
+		// check is the list is not empty
+		if (this.isEmpty()) return null;
+
+		// check if there is only one item in the list
+		if (this.head.next === null) return null;
+		let prev;
+		let current = this.head;
+		// iterate over the list
+		while (current.next !== null) {
+			// keep track of what the prev node is
+			prev = current;
+			current = current.next;
+			// if (current.next === null) {
+			// 	return prev.data;
+			// }
+		}
+
+		return prev.data;
+	}
+
+	// remove the node that has the given value
+	removeVal(val) {
+		// check if the list is empty
+		if (this.isEmpty()) return false;
+
+		// check to see if there is only one node
+		// create 3 variable
+		let prev = null;
+		let current = this.head;
+		//create next inside of the loop
+		let next = current.next;
+
+		if (val === current.data) {
+			this.removeHead();
+			return true;
+		}
+		while (current !== null) {
+			// let next = current.next
+			prev = current;
+			current = next;
+			next = current.next;
+			if (val === current.data) {
+				this.length--;
+				prev.next = next;
+				return true;
+			}
+		}
+
+		return false;
+
+		// iterate over the list
+		// update the variables
+
+		// return a bool
+	}
+
+	// adds a new node before the node with the target value
+	preEnd(newVal, targetVal) {
+		//check if the list is empty
+		if (this.isEmpty()) return false;
+		//insert at head
+		if (this.head.data === null && this.head.data === targetVal) {
+			console.log("the second if hit");
+
+			this.insertAtFront(newVal);
+			return true;
+		}
+		console.log("second if did not hit");
+
+		//create 3 variable ;
+		let prev = null;
+		let current = this.head;
+		let next = current.next;
+		// iterate over the list
+		while (current !== null) {
+			// update what the 3 variable are
+			prev = current;
+			current = next;
+			next = current.next;
+			// create a new node
+			if (targetVal === current.data) {
+				let node = new ListNode(newVal);
+				prev.next = node;
+				node.next = current;
+				this.length++;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	// preEnd(newVal, targetVal) {
+	// 	if (this.isEmpty()) return false;
+
+	// 	if (this.head === null && targetVal === this.head) {
+	// 	  console.log("the second if hit");
+	// 	  this.insertAtFront(newVal);
+	// 	  return true;
+	// 	}
+
+	// 	let prev = null;
+	// 	let current = this.head;
+	// 	let next = current.next;
+
+	// 	while (current !== null) {
+	// 	  prev = current;
+	// 	  current = next;
+	// 	  if (current !== null) {
+	// 		next = current.next;
+	// 	  }
+
+	// 	  if (targetVal === current.data) {
+	// 		let node = new ListNode(newVal);
+	// 		prev.next = node;
+	// 		node.next = current;
+	// 		this.length++;
+	// 		return true;
+	// 	  }
+	// 	}
+
+	// 	return false;
+	//   }
 
 	// inserts a new node at the back of the likedList
 	insertAtBack(data) {
 		const node = new ListNode(data);
 		if (this.isEmpty()) {
 			this.length++;
-			return (this.head = node);
+			this.head = node;
+			return this;
 		}
 		let current = this.head;
 		while (current !== null) {
 			if (current.next === null) {
 				this.length++;
-				return (current.next = node);
+				current.next = node;
+				return this;
 			}
 			current = current.next;
 		}
@@ -151,7 +372,12 @@ class singlyLinkedList {
 }
 
 const ll = new singlyLinkedList();
-ll.insertAtFront(1);
-ll.average();
+
+ll.insertAtBack(1);
+ll.insertAtBack(2);
+ll.insertAtBack(3);
+ll.insertAtBack(4);
+
+console.log(ll.preEnd(11, 3));
 
 module.exports = singlyLinkedList;
