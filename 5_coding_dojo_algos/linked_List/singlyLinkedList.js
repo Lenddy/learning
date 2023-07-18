@@ -243,25 +243,19 @@ class singlyLinkedList {
 		//check if the list is empty
 		if (this.isEmpty()) return false;
 		//insert at head
-		if (this.head.data === null && this.head.data === targetVal) {
-			console.log("the second if hit");
-
+		if (this.head.next === null && this.head.data === targetVal) {
 			this.insertAtFront(newVal);
 			return true;
 		}
-		console.log("second if did not hit");
 
 		//create 3 variable ;
 		let prev = null;
 		let current = this.head;
-		let next = current.next;
+		// let next = current.next;
 		// iterate over the list
 		while (current !== null) {
 			// update what the 3 variable are
 			prev = current;
-			current = next;
-			next = current.next;
-			// create a new node
 			if (targetVal === current.data) {
 				let node = new ListNode(newVal);
 				prev.next = node;
@@ -269,41 +263,12 @@ class singlyLinkedList {
 				this.length++;
 				return true;
 			}
+			current = current.next;
+			// next = current.next;
+			// create a new node
 		}
 		return false;
 	}
-
-	// preEnd(newVal, targetVal) {
-	// 	if (this.isEmpty()) return false;
-
-	// 	if (this.head === null && targetVal === this.head) {
-	// 	  console.log("the second if hit");
-	// 	  this.insertAtFront(newVal);
-	// 	  return true;
-	// 	}
-
-	// 	let prev = null;
-	// 	let current = this.head;
-	// 	let next = current.next;
-
-	// 	while (current !== null) {
-	// 	  prev = current;
-	// 	  current = next;
-	// 	  if (current !== null) {
-	// 		next = current.next;
-	// 	  }
-
-	// 	  if (targetVal === current.data) {
-	// 		let node = new ListNode(newVal);
-	// 		prev.next = node;
-	// 		node.next = current;
-	// 		this.length++;
-	// 		return true;
-	// 	  }
-	// 	}
-
-	// 	return false;
-	//   }
 
 	// inserts a new node at the back of the likedList
 	insertAtBack(data) {
@@ -371,13 +336,13 @@ class singlyLinkedList {
 	}
 }
 
-const ll = new singlyLinkedList();
+// const ll = new singlyLinkedList();
 
-ll.insertAtBack(1);
-ll.insertAtBack(2);
-ll.insertAtBack(3);
-ll.insertAtBack(4);
+// ll.insertAtBack(1);
+// ll.insertAtBack(2);
+// ll.insertAtBack(3);
+// ll.insertAtBack(4);
 
-console.log(ll.preEnd(11, 3));
+// console.log(ll.preEnd(11, 1));
 
 module.exports = singlyLinkedList;

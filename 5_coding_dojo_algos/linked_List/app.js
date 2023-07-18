@@ -4,17 +4,17 @@ const ll = new singlyLinkedList();
 
 // console.log(ll.isEmpty());
 
-// ll.insertAtFront(1);
-// ll.insertAtFront(2);
-// ll.insertAtFront(3);
+ll.insertAtFront(1);
+ll.insertAtFront(2);
+ll.insertAtFront(3);
 // ll.insertAtFront(7);
-ll.insertAtBack(1);
+// ll.insertAtBack(1);
 // ll.insertAtBack(2);
 // ll.insertAtBack(3);
 // ll.insertAtBack(4);
 // console.log(ll.secondeToLast());
 
-console.log(ll.preEnd(11, 1));
+console.log(ll.preEnd(11, 5));
 // console.log("remove val", ll.removeVal(1));
 // console.log("remove val", ll.removeVal(4));
 
