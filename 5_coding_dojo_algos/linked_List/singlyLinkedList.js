@@ -270,6 +270,154 @@ class singlyLinkedList {
 		return false;
 	}
 
+	// add a list to the back of this list
+	concat(addList) {
+		let current = this.head;
+		let counter = 0;
+		// check if the list is empty
+		if (this.isEmpty()) {
+			this.head = addList.head;
+			current = addList.head;
+			while (current) {
+				counter++;
+				current = current.next;
+			}
+			this.length += counter;
+			return this;
+		}
+
+		// iterate over the list
+
+		// get the last node in this list
+		while (current.next) {
+			current = current.next;
+		}
+		// attach head of the seconde list to be the .next of the las node in the first list
+		current.next = addList.head;
+		current = addList.head;
+
+		// to increase the length count
+		while (current) {
+			counter++;
+			current = current.next;
+		}
+		this.length += counter;
+
+		// return this
+		return this;
+	}
+
+	// finds a node with the smallest data move it to the front
+	moveIntoFront() {
+		// // check if this list is empty
+		// if (this.isEmpty()) return this;
+
+		// if (this.head.next === null) return this;
+		// let prev = null;
+		// let current = this.head;
+		// let smallest = this.head.data;
+		// // iterate over the list
+		// while (current) {
+		// 	current = current.next;
+		// 	if (current !== null && smallest > current.data) {
+		// 		smallest = current.data;
+		// 	}
+		// }
+		// current = this.head;
+		// while (current) {
+		// 	prev = current;
+		// 	if (smallest == prev.data) {
+		// 		// add the current node be the head
+		// 		this.insertAtFront(smallest);
+		// 		// no mater if this line is before the this.insertAtBack method id does not delete the decier node  it work after it was added after the insertion at the front but then it stope working ramdomly and does not deleted the node
+		// 		prev.next = current.next;
+
+		// 		return this;
+		// 	}
+		// 	current = current.next;
+		// }
+		// // return this;
+
+		//! this is from chatgpt that also had a har time explaining what was happening and at the end it just decided to give me a solution
+
+		if (this.isEmpty()) return this;
+
+		if (this.head.next === null) return this;
+
+		let prev = null;
+		let current = this.head;
+		let smallest = this.head.data;
+
+		// Find the smallest value and its previous node
+		let prevSmallest = null; //so this is essentially having a previous of the previous node
+		while (current) {
+			if (current.data < smallest) {
+				smallest = current.data;
+				prevSmallest = prev;
+			}
+			prev = current;
+			current = current.next;
+		}
+
+		if (prevSmallest) {
+			// Move the node with smallest value to the front
+			prevSmallest.next = prevSmallest.next.next; //!and bruuuue here is deleting the node before the new node is add with in my original one i did the same thing basically and it did not wanted to delete the node it had a duplicate it was only when i move this line to bellow the next line that i worked and then it stop deleting the node randomly for no reason buttttttt ooookey what ever i have a better method so cant complain i guess
+
+			this.length--; //* i added this line
+			this.insertAtFront(smallest);
+		}
+
+		return this;
+	}
+
+	// Splits the the list into two different list  and the seconde list starts with the given value
+	splitOnVal(val) {
+		const newLinkedList = new singlyLinkedList();
+		let prev = null;
+		let current = this.head;
+		// check that the list is not empty
+		if (this.isEmpty()) {
+			console.log("the first list is empty");
+			return newLinkedList;
+		}
+
+		// check if there is only one value in the list
+		if (current.next === null && current.data === val) {
+			newLinkedList.head = this.head;
+			this.head = null;
+			return newLinkedList;
+		}
+
+		// keep track of the prev nodes and the current nodes
+
+		// iterate over the linked list
+		while (current.next) {
+			if (current.data === val) {
+				// if it is create the new linked list and attach the node of the prev linked list
+
+				newLinkedList.head = current;
+				if (prev === null) {
+					this.head = prev;
+					return newLinkedList;
+				} else {
+					prev.next = null;
+				}
+				return newLinkedList;
+			}
+			// update what prev and current are
+			prev = current;
+			// check if the node that we are at at the moment hold data the is == to val pass in
+			current = current.next;
+		}
+		return (
+			console.log("no node data was === to the inputted value"),
+			newLinkedList
+		);
+
+		//the nodes that are made into the new list need to be deleted in the old list
+		// return the new list
+	}
+
 	// inserts a new node at the back of the likedList
 	insertAtBack(data) {
 		const node = new ListNode(data);
